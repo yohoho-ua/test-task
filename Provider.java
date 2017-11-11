@@ -56,6 +56,7 @@ public class Provider implements Supplier<byte[]> {
             writer.append(hexString.toString());
             writer.newLine();
             writer.close();
+            System.out.println(Thread.currentThread().toString() + " - provider save");
         } catch (IOException e) {
             e.printStackTrace();
         }
