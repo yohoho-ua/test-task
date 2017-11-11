@@ -40,13 +40,22 @@ public class Provider implements Supplier<byte[]> {
         for(byte b: sha)
             hexString.append(String.format("%02x", b));
         DataOutputStream os;
-        try {
+        /*try {
             os = new DataOutputStream(new FileOutputStream(file, true));
-            os.writeUTF(hexString.toString());
+            os.writeChars(hexString.toString());
             os.close();
             System.out.println(Thread.currentThread().toString() + " - provider save");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            writer.append(hexString.toString());
+            writer.newLine();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
