@@ -31,11 +31,6 @@ public class Main {
             e.printStackTrace();
         }
 
-        //ExecutorService executor = Executors.newCachedThreadPool();
-/*
-        supplyAsync(this::createId).
-                thenApply(this::convert).
-                thenAccept(this::store);*/
 
         List<Provider> providers = new ArrayList<>();
 
