@@ -21,8 +21,9 @@ public class Main {
 
 
         List<File> filesInFolder = null;
+        /**Collect files in specified folder*/
         try {
-            //filesInFolder = Files.walk(Paths.get("F://media//tt"))
+//            filesInFolder = Files.walk(Paths.get("F://media//tt"))
             filesInFolder = Files.walk(Paths.get(args[0]))
                     .filter(Files::isRegularFile)
                     .map(Path::toFile)
@@ -31,15 +32,19 @@ public class Main {
             e.printStackTrace();
         }
 
-
+        /**inject file object for each provider*/
         List<Provider> providers = new ArrayList<>();
-
         for (File file : filesInFolder) {
             providers.add(new Provider(file));
         }
 
 
-
+        /**
+         * create List of 3-phase pipelines of Future objects
+         * 1. Get file data from provider
+         * 2. Transfer to Worker getSHA method
+         * 3. Return SHA-256 byte array to provider
+         */
         ArrayList<CompletableFuture<byte[]>> futures = new ArrayList<>();
         for (Provider provider : providers) {
             CompletableFuture startFuture = CompletableFuture

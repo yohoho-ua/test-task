@@ -39,19 +39,7 @@ public class Provider implements Supplier<byte[]> {
               StringBuilder hexString = new StringBuilder(sha.length * 2);
         for(byte b: sha)
             hexString.append(String.format("%02x", b));
-        DataOutputStream os;
-        /*try {
-            os = new DataOutputStream(new FileOutputStream(file, true));
-            os.writeChars(hexString.toString());
-            os.close();
-            System.out.println(Thread.currentThread().toString() + " - provider save");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        try {
+               try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
             writer.append(hexString.toString());
             writer.newLine();
@@ -61,6 +49,16 @@ public class Provider implements Supplier<byte[]> {
             e.printStackTrace();
         }
     }
+
+    /*private void copyStream(InputStream input, OutputStream output) throws IOException
+    {
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) != -1)
+        {
+            output.write(buffer, 0, bytesRead);
+        }
+    }*/
 
 }
 
